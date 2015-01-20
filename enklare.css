@@ -1,0 +1,15 @@
+*{
+    font-family: Comic Sans MS;
+}
+#wrapper{
+    margin: 0 auto;
+    width: 1200px;
+    overflow: auto;
+}
+.dag {
+    float: left;
+    border: 1px solid black;
+    width: 150px;
+    height: 100px;
+    background-color: pink;
+}
