@@ -24,7 +24,16 @@ echo "</div>";
 
 if(isset($_GET["laggTill_aktivitet"])){
     echo "<form method='GET'>";
-    echo "<input type='text' name='rubrik'>";
+    echo "<p>Titel</p>";
+    echo "<input type='text' name='titel'>";
+    echo "<p>Inlägg</p>";
     echo "<input type='text' name='info'>";
-    
+    echo "<p>År</p>";
+    echo "<input type='text' name='ar'>";
+    echo "<p>Månad</p>";
+    echo "<input type='text' name='manad'>";
+    echo "<p>Dag</p>";
+    echo "<input type='text' name='dag'>";
+    echo "<input type='submit'>";
+    echo "</form>";
 }
