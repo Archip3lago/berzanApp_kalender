@@ -17,16 +17,26 @@ define("DB_SERVER", "localhost");
         define("DB_NAME", "berzanapp");
         $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
-
+        include 'data.php';
+        
 echo "<div id='wrapper'>";
-for($i = 1; $i <= 31; $i++){
-    echo "<div class='dag' id='nummer_". $i ."'>";
-    echo "<p>" . $i . "</p>";
-    echo "<form method='GET'>";
-    echo "<input type='submit' name='laggTill_aktivitet' value='Ny Aktivitet'>";
-    echo "<input type='hidden' name='id' value='". $i ."'>";
-    echo "</form></div>";
-}
+
+$m = date('M');
+$y = date('Y');
+
+//echo $data[$y]["$m"];
+
+$m_length = $data[$y];
+
+//for($i = 1; $i <= ; $i++){
+//    
+//    
+//    
+//    
+//    
+//    
+//    
+//}
 echo "</div>";
 
 if(isset($_GET["laggTill_aktivitet"])){
@@ -66,11 +76,11 @@ if(isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet"){
     $tid_slut = $tmp_timmeslut . $tmp_minutslut;
     $datum = $tmp_year . "-" . $tmp_month . "-" . $tmp_day . " " . $tmp_timme . ":" . $tmp_minut . ":00";
     
-    $sql = "INSERT INTO aktiviteter(titel, inlägg, plats, person, daatum, tid) VALUES (:titel, :info, :plats, :person, :daatum, :tid)";
+    $sql = "INSERT INTO aktiviteter(titel, inlägg, plats, person, datum, tid) VALUES (:titel, :info, :plats, :person, :datum, :tid)";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":titel", $tmp_titel);
     $stmt->bindParam(":info", $tmp_info);
-    $stmt->bindParam(":daatum", $datum);
+    $stmt->bindParam(":datum", $datum);
     $stmt->bindParam(":tid", $tid_slut);
     $stmt->bindParam(":person", $tmp_anv);
     $stmt->bindParam(":plats", $tmp_plats);
