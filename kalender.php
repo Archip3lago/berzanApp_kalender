@@ -24,19 +24,30 @@ echo "<div id='wrapper'>";
 $m = date('M');
 $y = date('Y');
 
-//echo $data[$y]["$m"];
+$this_length = date('t');
 
-$m_length = $data[$y];
+        
+//Skapa gömda dagar
+for($i = 1; $i <= $data[$y][$m]; $i++){
+    echo "<div class='stay_hidden dag'>";
+    echo "<p>Detta syns inte</p>";
+    echo "</div>";    
+}
 
-//for($i = 1; $i <= ; $i++){
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//}
+    $sql = "SELECT * FROM `aktiviteter` WHERE 1";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(); 
+    $aktiv = $stmt->fetchAll();
+
+for($i = 1; $i <= $this_length; $i++){
+    echo "<div class='dag'>";
+    echo "<p>" . $i . "</p>";
+    if()
+    echo "<form method='GET'>";
+    echo "<input type='hidden' name='date' value='". $i ."'>";
+    echo "<input type='submit' name='laggTill_aktivitet' value='Ny aktivitet'>";
+    echo "</div>";
+}
 echo "</div>";
 
 if(isset($_GET["laggTill_aktivitet"])){

@@ -18,12 +18,12 @@ function dag($d){
     }
 }
 
-$data[2015]  = array("jan"=>3,"feb"=>6,"mar"=>6, "apr"=>2, "maj"=>4,"jun"=>0,"jul"=>2,"aug"=>5,"sep"=>1,"okt"=>3,"nov"=>6,"dec"=>1);
-$data[2016]  = array("jan"=>4,"feb"=>0,"mar"=>1, "apr"=>4, "maj"=>6,"jun"=>2,"jul"=>4,"aug"=>0,"sep"=>3,"okt"=>5,"nov"=>1,"dec"=>3);
-$data[2017]  = array("jan"=>6,"feb"=>2,"mar"=>2, "apr"=>5, "maj"=>0,"jun"=>3,"jul"=>5,"aug"=>1,"sep"=>4,"okt"=>6,"nov"=>2,"dec"=>4);
-$data[2018]  = array("jan"=>0,"feb"=>3,"mar"=>3, "apr"=>6, "maj"=>1,"jun"=>4,"jul"=>6,"aug"=>2,"sep"=>5,"okt"=>0,"nov"=>3,"dec"=>5);
-$data[2019]  = array("jan"=>1,"feb"=>4,"mar"=>4, "apr"=>0, "maj"=>2,"jun"=>5,"jul"=>0,"aug"=>3,"sep"=>6,"okt"=>1,"nov"=>4,"dec"=>6);
-$data[2020]  = array("jan"=>2,"feb"=>5,"mar"=>6, "apr"=>2, "maj"=>4,"jun"=>0,"jul"=>2,"aug"=>5,"sep"=>1,"okt"=>3,"nov"=>6,"dec"=>1);
+$data[2015]  = array("Jan"=>3,"Feb"=>6,"Mar"=>6, "Apr"=>2, "May"=>4,"Jun"=>0,"Jul"=>2,"Aug"=>5,"Sep"=>1,"Oct"=>3,"Nov"=>6,"Dec"=>1);
+$data[2016]  = array("Jan"=>4,"Feb"=>0,"Mar"=>1, "Apr"=>4, "May"=>6,"Jun"=>2,"Jul"=>4,"Aug"=>0,"Sep"=>3,"Oct"=>5,"Nov"=>1,"Dec"=>3);
+$data[2017]  = array("Jan"=>6,"Feb"=>2,"Mar"=>2, "Apr"=>5, "May"=>0,"Jun"=>3,"Jul"=>5,"Aug"=>1,"Sep"=>4,"Oct"=>6,"Nov"=>2,"Dec"=>4);
+$data[2018]  = array("Jan"=>0,"Feb"=>3,"Mar"=>3, "Apr"=>6, "May"=>1,"Jun"=>4,"Jul"=>6,"Aug"=>2,"Sep"=>5,"Oct"=>0,"Nov"=>3,"Dec"=>5);
+$data[2019]  = array("Jan"=>1,"Feb"=>4,"Mar"=>4, "Apr"=>0, "May"=>2,"Jun"=>5,"Jul"=>0,"Aug"=>3,"Sep"=>6,"Oct"=>1,"Nov"=>4,"Dec"=>6);
+$data[2020]  = array("Jan"=>2,"Feb"=>5,"Mar"=>6, "Apr"=>2, "May"=>4,"Jun"=>0,"Jul"=>2,"Aug"=>5,"Sep"=>1,"Oct"=>3,"Nov"=>6,"Dec"=>1);
 
 $data[2015]["skottar"] = false;
 $data[2016]["skottar"] = true;
@@ -32,20 +32,19 @@ $data[2018]["skottar"] = false;
 $data[2019]["skottar"] = false;
 $data[2020]["skottar"] = true;
 
-$jan_length = 31;
-$feb_length = 28;
-$feb_length_skott = 29;
-$mar_length = 31;
-$apr_length = 30;
-$maj_length = 31;
-$jun_length = 30;
-$jul_length = 31;
-$aug_length = 31;
-$sep_length = 30;
-$okt_length = 31;
-$nov_length = 30;
-$dec_length = 31;
+$Jan_length = 31;
+$Feb_length = 28;
+$Feb_length_skott = 29;
+$Mar_length = 31;
+$Apr_length = 30;
+$May_length = 31;
+$Jun_length = 30;
+$Jul_length = 31;
+$Aug_length = 31;
+$Sep_length = 30;
+$Oct_length = 31;
+$Nov_length = 30;
+$Dec_length = 31;
 
 
-echo date('n');
 ?>

@@ -13,3 +13,6 @@
     height: 100px;
     background-color: pink;
 }
+.stay_hidden{
+    visibility: hidden;
+}
