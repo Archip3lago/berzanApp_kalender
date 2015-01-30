@@ -19,3 +19,7 @@ body{
 .stay_hidden{
     visibility: hidden;
 }
+.dagnamn{
+    width: 150px;
+    float:left;
+}

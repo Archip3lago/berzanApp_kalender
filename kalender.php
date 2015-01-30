@@ -78,11 +78,37 @@ if(isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet"){
 
 function skriv_ut_dagar($year, $month, $displacement){
     echo "<h1>" . $month . "</h1>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Måndag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Tisdag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Onsdag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Torsdag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Fredag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Lördag</h3>"; 
+            echo "</div>";
+            echo "<div class='dagnamn'>";
+            echo "<h3>Söndag</h3>"; 
+            echo "</div>";
+    
+    
     for($i = 1; $i <= $displacement; $i++){
         echo "<div class='stay_hidden dag'>";
         echo "<p>Detta syns inte</p>"; 
         echo "</div>";
     }
+    
+    
+    
     $length = date('t');
     for($i = 1; $i <= $length; $i++){
         echo "<div class='dag'>";
@@ -106,10 +132,10 @@ function skriv_ut_dagar($year, $month, $displacement){
 //    echo "</div>";    
 //}
 //
-//    $sql = "SELECT * FROM `aktiviteter` WHERE 1";
-//    $stmt = $dbh->prepare($sql);
-//    $stmt->execute(); 
-//    $aktiv = $stmt->fetchAll();
+    $sql = "SELECT * FROM `aktiviteter` WHERE 1";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(); 
+    $aktiv = $stmt->fetchAll();
 //
 //for($i = 1; $i <= $this_length; $i++){
 //    echo "<div class='dag'>";
