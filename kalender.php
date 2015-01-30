@@ -24,30 +24,8 @@ echo "<div id='wrapper'>";
 $m = date('M');
 $y = date('Y');
 
-$this_length = date('t');
+skriv_ut_dagar($y, $m, $data[$y][$m]);
 
-        
-//Skapa gömda dagar
-for($i = 1; $i <= $data[$y][$m]; $i++){
-    echo "<div class='stay_hidden dag'>";
-    echo "<p>Detta syns inte</p>";
-    echo "</div>";    
-}
-
-    $sql = "SELECT * FROM `aktiviteter` WHERE 1";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute(); 
-    $aktiv = $stmt->fetchAll();
-
-for($i = 1; $i <= $this_length; $i++){
-    echo "<div class='dag'>";
-    echo "<p>" . $i . "</p>";
-    if()
-    echo "<form method='GET'>";
-    echo "<input type='hidden' name='date' value='". $i ."'>";
-    echo "<input type='submit' name='laggTill_aktivitet' value='Ny aktivitet'>";
-    echo "</div>";
-}
 echo "</div>";
 
 if(isset($_GET["laggTill_aktivitet"])){
@@ -97,3 +75,48 @@ if(isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet"){
     $stmt->bindParam(":plats", $tmp_plats);
     $stmt->execute(); 
 }
+
+function skriv_ut_dagar($year, $month, $displacement){
+    echo "<h1>" . $month . "</h1>";
+    for($i = 1; $i <= $displacement; $i++){
+        echo "<div class='stay_hidden dag'>";
+        echo "<p>Detta syns inte</p>"; 
+        echo "</div>";
+    }
+    $length = date('t');
+    for($i = 1; $i <= $length; $i++){
+        echo "<div class='dag'>";
+        echo "<p>" . $i . "</p>";
+        echo "<form method='GET'>";
+        echo "<input type='hidden' name='date' value='dag_" . $i ."'>";
+        echo "<input type='submit' value='Ny aktivitet'>";
+        echo "</div>";
+    }
+    
+}  
+
+
+
+
+
+////Skapa gömda dagar
+//for($i = 1; $i <= $data[$y][$m]; $i++){
+//    echo "<div class='stay_hidden dag'>";
+//    echo "<p>Detta syns inte</p>";
+//    echo "</div>";    
+//}
+//
+//    $sql = "SELECT * FROM `aktiviteter` WHERE 1";
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->execute(); 
+//    $aktiv = $stmt->fetchAll();
+//
+//for($i = 1; $i <= $this_length; $i++){
+//    echo "<div class='dag'>";
+//    echo "<p>" . $i . "</p>";
+//   
+//    echo "<form method='GET'>";
+//    echo "<input type='hidden' name='date' value='". $i ."'>";
+//    echo "<input type='submit' name='laggTill_aktivitet' value='Ny aktivitet'>";
+//    echo "</div>";
+//}

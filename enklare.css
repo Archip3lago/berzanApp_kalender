@@ -1,6 +1,9 @@
 *{
     font-family: Comic Sans MS;
 }
+body{
+    background-image: url("barnana.gif");
+}
 #wrapper{
     margin: 0 auto;
     width: 1200px;
