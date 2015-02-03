@@ -42,10 +42,11 @@ for($i = 1; $i <= $data[$y][$m]; $i++){
 for($i = 1; $i <= $this_length; $i++){
     echo "<div class='dag'>";
     echo "<p>" . $i . "</p>";
-    if()
     echo "<form method='GET'>";
     echo "<input type='hidden' name='date' value='". $i ."'>";
     echo "<input type='submit' name='laggTill_aktivitet' value='Ny aktivitet'>";
+    //här
+    
     echo "</div>";
 }
 echo "</div>";
