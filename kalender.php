@@ -1,14 +1,3 @@
-<html>
-    <head>
-        <title>stuff shizzle</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="enklare.css">
-    </head>
-    <body>
-
-    </body>
-</html>
 <?php
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
@@ -18,35 +7,34 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 
 include 'data.php';
 
-echo "<div id='wrapper'>";
+
 
 $m = date('M');
 $y = date('Y');
 
-skriv_ut_dagar($y, $m, $data[$y][$m]);
 
-
-echo "</div>";
-
+$form_html = "";
 if (isset($_GET["laggTill_aktivitet"])) {
-    echo "<form method='GET'>";
-    echo "<p>Titel</p>";
-    echo "<input type='text' name='titel'>";
-    echo "<p>Inlägg</p>";
-    echo "<input type='text' name='info'>";
-    echo "<p>Plats</p>";
-    echo "<input type='text' name='plats'>";
-    echo "<p>Datum (åååå-mm-dd)</p>";
-    echo "<input type='number' name='ar'> - <input type='number' name='manad'> - <input type='number' name='dag'>";
-    echo "<p>Starttid(tt:mm)</p>";
-    echo "<input type='number' name='timme_start'> : <input type='number' name='minut_start'>";
-    echo "<p>Sluttid (tt:mm)</p>";
-    echo "<input type='number' name='timme_slut'> : <input type='number' name='minut_slut'>";
-    echo "<p>Användare</p>";
-    echo "<input type='text' name='användare'>";
-    echo "<input type='hidden' name='action' value='ny_aktivitet'>";
-    echo "<input type='submit'>";
-    echo "</form>";
+    $form_html .= "<div id='form_aktivitet'>";
+    $form_html .= "<form method='GET'>";
+    $form_html .= "<p>Titel</p>";
+    $form_html .= "<input type='text' name='titel' required>";
+    $form_html .= "<p>Inlägg</p>";
+    $form_html .= "<input type='text' name='info' required>";
+    $form_html .= "<p>Plats</p>";
+    $form_html .= "<input type='text' name='plats' required>";
+    $form_html .= "<p>Datum (åååå-mm-dd)</p>";
+    $form_html .= "<input type='number' name='ar' required> - <input type='number' name='manad' required> - <input type='number' name='dag' required>";
+    $form_html .= "<p>Starttid(tt:mm)</p>";
+    $form_html .= "<input type='number' name='timme_start' required> : <input type='number' name='minut_start' required>";
+    $form_html .= "<p>Sluttid (tt:mm)</p>";
+    $form_html .= "<input type='number' name='timme_slut' required> : <input type='number' name='minut_slut' required>";
+    $form_html .= "<p>Användare</p>";
+    $form_html .= "<input type='text' name='användare' required>";
+    $form_html .= "<input type='hidden' name='action' value='ny_aktivitet'>";
+    $form_html .= "<input type='submit'>";
+    $form_html .= "</form>";
+    $form_html .= "</div>";
 }
 
 if (isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet") {
@@ -74,6 +62,9 @@ if (isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet") {
     $stmt->bindParam(":person", $tmp_anv);
     $stmt->bindParam(":plats", $tmp_plats);
     $stmt->execute();
+    header("Location:?");
+    exit();
+    
 }
 
 function skriv_ut_dagar($year, $month, $displacement) {
@@ -116,6 +107,7 @@ function skriv_ut_dagar($year, $month, $displacement) {
         echo "<p>" . $i . "</p>";
         letaAktivitet($year, $m, $i);
         echo "<form method='GET'>";
+        echo "<input type='hidden' name='laggTill_aktivitet'>";
         echo "<input type='hidden' name='date' value='dag_" . $i . "'>";
         echo "<input type='submit' value='Ny aktivitet'>";
         echo "</div>";
@@ -123,7 +115,6 @@ function skriv_ut_dagar($year, $month, $displacement) {
 }
 
 function letaAktivitet($year, $month, $day) {
-    
     $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
     if (strlen($day) == 1) {
         $day = 0 . $day;
@@ -134,6 +125,26 @@ function letaAktivitet($year, $month, $day) {
     $stmt->execute();
     $aktiviteter = $stmt->fetchAll();
     foreach ($aktiviteter as $aktivitet) {
-        echo "<a href=''>" . $aktivitet["titel"] . "</a>";
+        echo "<a href='aktivitet.php?aktivitets_id=".$aktivitet["id"]."'>" . $aktivitet["titel"] . "</a><br>";
     }
+       
 }
+
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>stuff shizzle</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="enklare.css">
+    </head>
+    <body>
+        <div id='wrapper'>
+            <?php 
+            skriv_ut_dagar($y, $m, $data[$y][$m]);
+            echo $form_html; 
+            ?>
+        </div>
+    </body>
+</html>

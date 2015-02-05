@@ -13,8 +13,8 @@ body{
 .dag {
     float: left;
     border: 1px solid black;
-    width: 350px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     background-color: pink;
 }
 .stay_hidden{
@@ -23,4 +23,7 @@ body{
 .dagnamn{
     width: 150px;
     float:left;
+}
+#form_aktivitet{
+    width: 800px;
 }
