@@ -6,6 +6,7 @@ define("DB_NAME", "berzanapp");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
 $aktivitet = "";
+$redigera_aktivitet = "";
 
 if (isset($_GET["aktivitets_id"])) {
     $sql = "SELECT * FROM aktiviteter WHERE id=" . $_GET["aktivitets_id"] . "";
@@ -41,69 +42,73 @@ if (isset($_GET["delete"])) {
     header("Location:kalender.php");
     exit();
 }
+
 if (isset($_GET["edit"])) {
     $sql = "SELECT * FROM aktiviteter WHERE id='" . $_GET["id"] . "'";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     $aktiviteter = $stmt->fetchAll();
 
-    echo "<form method='GET'>";
-    echo '<p>Titel</p>';
-    echo "<input type='text' name='titel' value='" . $aktiviteter[0]["titel"] . "'>";
-    echo '<br>';
-    echo '<p>Inlägg</p>';
-    echo "<input type='text' name='inlägg' value='" . $aktiviteter[0]["inlägg"] . "'>";
-    echo '<br>';
-    echo '<p>Plats</p>';
-    echo "<input type='text' name='plats' value='" . $aktiviteter[0]["plats"] . "'>";
-    echo '<br>';
-    echo '<p>Datum</p>';
-    echo "<select name='år'>";
-    echo "<option value='2015'>2015</option>";
-    echo "<option value='2016'>2016</option>";
-    echo "<option value='2017'>2017</option>";
-    echo "<option value='2018'>2018</option>";
-    echo "<option value='2019'>2019</option>";
-    echo "<option value='2020'>2020</option>";
-    echo "</select>";
-    echo "<select name='månad'>";
-    echo "<option value='01'>Januari</option>";
-    echo "<option value='02'>Februari</option>";
-    echo "<option value='03'>Mars</option>";
-    echo "<option value='04'>April</option>";
-    echo "<option value='05'>Maj</option>";
-    echo "<option value='06'>Juni</option>";
-    echo "<option value='07'>Juli</option>";
-    echo "<option value='08'>Augusti</option>";
-    echo "<option value='09'>September</option>";
-    echo "<option value='10'>Oktober</option>";
-    echo "<option value='11'>November</option>";
-    echo "<option value='12'>December</option>";
-    echo "</select>";
-    echo "<select name='dag'>";
+    $redigera_aktivitet .= "<form method='GET'>";
+    $redigera_aktivitet .= '<p>Titel</p>';
+    $redigera_aktivitet .= "<input type='text' name='titel' value='" . $aktiviteter[0]["titel"] . "'>";
+    $redigera_aktivitet .= '<br>';
+    $redigera_aktivitet .= '<p>Inlägg</p>';
+    $redigera_aktivitet .= "<input type='text' name='inlägg' value='" . $aktiviteter[0]["inlägg"] . "'>";
+    $redigera_aktivitet .= '<br>';
+    $redigera_aktivitet .= '<p>Plats</p>';
+    $redigera_aktivitet .= "<input type='text' name='plats' value='" . $aktiviteter[0]["plats"] . "'>";
+    $redigera_aktivitet .= '<br>';
+    $redigera_aktivitet .= '<p>Datum</p>';
+    $redigera_aktivitet .= "<select name='år'>";
+    $redigera_aktivitet .= "<option value='2015'>2015</option>";
+    $redigera_aktivitet .= "<option value='2016'>2016</option>";
+    $redigera_aktivitet .= "<option value='2017'>2017</option>";
+    $redigera_aktivitet .= "<option value='2018'>2018</option>";
+    $redigera_aktivitet .= "<option value='2019'>2019</option>";
+    $redigera_aktivitet .= "<option value='2020'>2020</option>";
+    $redigera_aktivitet .= "</select>";
+    $redigera_aktivitet .= "<select name='månad'>";
+    $redigera_aktivitet .= "<option value='01'>Januari</option>";
+    $redigera_aktivitet .= "<option value='02'>Februari</option>";
+    $redigera_aktivitet .= "<option value='03'>Mars</option>";
+    $redigera_aktivitet .= "<option value='04'>April</option>";
+    $redigera_aktivitet .= "<option value='05'>Maj</option>";
+    $redigera_aktivitet .= "<option value='06'>Juni</option>";
+    $redigera_aktivitet .= "<option value='07'>Juli</option>";
+    $redigera_aktivitet .= "<option value='08'>Augusti</option>";
+    $redigera_aktivitet .= "<option value='09'>September</option>";
+    $redigera_aktivitet .= "<option value='10'>Oktober</option>";
+    $redigera_aktivitet .= "<option value='11'>November</option>";
+    $redigera_aktivitet .= "<option value='12'>December</option>";
+    $redigera_aktivitet .= "</select>";
+    $redigera_aktivitet .= "<select name='dag'>";
     for ($i = 1; $i < 32; $i++) {
         if (strlen($i) == 1) {
             $i = 0 . $i;
         }
-        echo "<option value='$i'>$i</option>";
+        $redigera_aktivitet .= "<option value='$i'>$i</option>";
     }
-    echo "</select>";
-    echo '<br>';
-    echo '<p>Start-tid (tt:mm)</p>';
-    echo "<input type='number' name='timmestart' value='" . substr($aktiviteter[0]["datum"], 11, 2) . "'>";
-    echo ':';
-    echo "<input type='number' name='minutstart' value='" . substr($aktiviteter[0]["datum"], 14, 2) . "'>";
-    echo '<br>';
-    echo '<p>Slut-tid (tt:mm)</p>';
-    echo "<input type='number' name='timmeslut' value='" . substr($aktiviteter[0]["tid"], 0, 2) . "'>";
-    echo ':';
-    echo "<input type='number' name='minutslut' value='" . substr($aktiviteter[0]["tid"], 2, 2) . "'>";
-    echo "<input type='hidden' name='id' value='" . $_GET["id"] . "'>";
-    echo "<input type='submit' name='Redigera_post' value='Kör'>";
-    echo "</form>";
+    $redigera_aktivitet .= "</select>";
+    $redigera_aktivitet .= '<br>';
+    $redigera_aktivitet .= '<p>Start-tid (tt:mm)</p>';
+    $redigera_aktivitet .= "<input type='number' name='timmestart' value='" . substr($aktiviteter[0]["datum"], 11, 2) . "'>";
+    $redigera_aktivitet .= ':';
+    $redigera_aktivitet .= "<input type='number' name='minutstart' value='" . substr($aktiviteter[0]["datum"], 14, 2) . "'>";
+    $redigera_aktivitet .= '<br>';
+    $redigera_aktivitet .= '<p>Slut-tid (tt:mm)</p>';
+    $redigera_aktivitet .= "<input type='number' name='timmeslut' value='" . substr($aktiviteter[0]["tid"], 0, 2) . "'>";
+    $redigera_aktivitet .= ':';
+    $redigera_aktivitet .= "<input type='number' name='minutslut' value='" . substr($aktiviteter[0]["tid"], 2, 2) . "'>";
+    $redigera_aktivitet .= "<input type='hidden' name='id' value='" . $_GET["id"] . "'>";
+    $redigera_aktivitet .= "<input type='submit' name='Redigera_post' value='Kör'>";
+    $redigera_aktivitet .= "</form>";
 }
 
 if (isset($_GET['Redigera_post'])) {
+    $m = $_GET["månad"];
+    $d = $_GET["dag"];
+    
     $tmp_titel = filter_input(INPUT_GET, 'titel', FILTER_SANITIZE_SPECIAL_CHARS);
     $tmp_info = filter_input(INPUT_GET, 'inlägg', FILTER_SANITIZE_SPECIAL_CHARS);
     $tmp_plats = filter_input(INPUT_GET, 'plats', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -129,15 +134,10 @@ if (isset($_GET['Redigera_post'])) {
     $stmt->execute();
     header("Location:kalender.php");
     exit();
+    
 }
 ?>
-
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -146,6 +146,7 @@ and open the template in the editor.
     <body>
         <?php
         echo $aktivitet;
+        echo $redigera_aktivitet;
         ?>
     </body>
 </html>
