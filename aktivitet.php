@@ -141,7 +141,8 @@ if (isset($_GET['Redigera_post'])) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Aktivitet</title>
+        <link rel="stylesheet" href="enklare.css">
     </head>
     <body>
         <?php

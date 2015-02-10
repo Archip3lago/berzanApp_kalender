@@ -11,7 +11,15 @@ include 'data.php';
 
 $m = date('M');
 $y = date('Y');
+$string_datum = $y . "-" . date('m') . "-01";
 
+if(isset($_GET["kalender_byt"])) {
+    $m = $_GET["månad_kalender"];
+    $y = $_GET["år_kalender"];
+    $string_datum = $_GET['år_kalender'] . "-" . $_GET['månad_kalender'] . "-01";
+}
+
+$date_datum = strtotime($string_datum);
 
 $form_html = "";
 if (isset($_GET["laggTill_aktivitet"])) {
@@ -64,7 +72,7 @@ if (isset($_GET["laggTill_aktivitet"])) {
     }
     $form_html .= "</select>:";
     $form_html .= "<select name='minut_start' required>";
-    for($n = 0; $n < 60; $n++){
+    for ($n = 0; $n < 60; $n++) {
         if (strlen($n) == 1) {
             $n = 0 . $n;
         }
@@ -81,7 +89,7 @@ if (isset($_GET["laggTill_aktivitet"])) {
     }
     $form_html .= "</select>:";
     $form_html .= "<select name='minut_slut' required>";
-    for($n = 0; $n < 60; $n++){
+    for ($n = 0; $n < 60; $n++) {
         if (strlen($n) == 1) {
             $n = 0 . $n;
         }
@@ -123,10 +131,9 @@ if (isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet") {
     $stmt->execute();
     header("Location:?");
     exit();
-    
 }
 
-function skriv_ut_dagar($year, $month, $displacement) {
+function skriv_ut_dagar($year, $month, $displacement, $date) {
     echo "<h1>" . $month . "</h1>";
     echo "<div class='dagnamn'>";
     echo "<h3>Måndag</h3>";
@@ -149,8 +156,6 @@ function skriv_ut_dagar($year, $month, $displacement) {
     echo "<div class='dagnamn'>";
     echo "<h3>Söndag</h3>";
     echo "</div>";
-
-
     for ($i = 1; $i <= $displacement; $i++) {
         echo "<div class='stay_hidden dag'>";
         echo "<p>Detta syns inte</p>";
@@ -158,14 +163,12 @@ function skriv_ut_dagar($year, $month, $displacement) {
     }
 
 
-
-    $length = date('t');
-    for ($i = 1; $i <= $length; $i++) {
-        $m = date('m');
+    $antal = date('t', $date);
+    for ($i = 1; $i <= $antal; $i++) {
         echo "<div class='dag'>";
         echo "<p>" . $i . "</p>";
-        letaAktivitet($year, $m, $i);
-        echo "<form method='GET'>";
+        letaAktivitet($year, $month, $i);
+        echo "<form method  ='GET'>";
         echo "<input type='hidden' name='laggTill_aktivitet'>";
         echo "<input type='hidden' name='date' value='dag_" . $i . "'>";
         echo "<input type='submit' value='Ny aktivitet'>";
@@ -184,11 +187,9 @@ function letaAktivitet($year, $month, $day) {
     $stmt->execute();
     $aktiviteter = $stmt->fetchAll();
     foreach ($aktiviteter as $aktivitet) {
-        echo "<a href='aktivitet.php?aktivitets_id=".$aktivitet["id"]."'>" . $aktivitet["titel"] . "</a><br>";
+        echo "<a href='aktivitet.php?aktivitets_id=" . $aktivitet["id"] . "'>" . $aktivitet["titel"] . "</a><br>";
     }
-       
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -200,9 +201,34 @@ function letaAktivitet($year, $month, $day) {
     </head>
     <body>
         <div id='wrapper'>
-            <?php 
-            skriv_ut_dagar($y, $m, $data[$y][$m]);
-            echo $form_html; 
+            <form method="GET">
+                <select name="år_kalender">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                </select>
+                <select name="månad_kalender">
+                    <option value="01">Januari</option>
+                    <option value="02">Februari</option>
+                    <option value="03">Mars</option>
+                    <option value="04">April</option>
+                    <option value="05">Maj</option>
+                    <option value="06">Juni</option>
+                    <option value="07">Juli</option>
+                    <option value="08">Augusti</option>
+                    <option value="09">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <input type='submit' name='kalender_byt' value='kör'>
+            </form>
+            <?php
+            skriv_ut_dagar($y, $m, $data[$y][$m], $date_datum);
+            echo $form_html;
             ?>
         </div>
     </body>
