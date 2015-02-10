@@ -20,15 +20,74 @@ if (isset($_GET["laggTill_aktivitet"])) {
     $form_html .= "<p>Titel</p>";
     $form_html .= "<input type='text' name='titel' required>";
     $form_html .= "<p>Inlägg</p>";
-    $form_html .= "<input type='text' name='info' required>";
+    $form_html .= "<input id='ruta' type='text' name='info' required>";
     $form_html .= "<p>Plats</p>";
     $form_html .= "<input type='text' name='plats' required>";
     $form_html .= "<p>Datum (åååå-mm-dd)</p>";
-    $form_html .= "<input type='number' name='ar' required> - <input type='number' name='manad' required> - <input type='number' name='dag' required>";
+    $form_html .= "<select name='ar'>";
+    $form_html .= "<option value='2015'>2015</option>";
+    $form_html .= "<option value='2016'>2016</option>";
+    $form_html .= "<option value='2017'>2017</option>";
+    $form_html .= "<option value='2018'>2018</option>";
+    $form_html .= "<option value='2019'>2019</option>";
+    $form_html .= "<option value='2020'>2020</option>";
+    $form_html .= "</select> - ";
+    $form_html .= "<select name='manad'>";
+    $form_html .= "<option value='01'>Januari</option>";
+    $form_html .= "<option value='02'>Februari</option>";
+    $form_html .= "<option value='03'>Mars</option>";
+    $form_html .= "<option value='04'>April</option>";
+    $form_html .= "<option value='05'>Maj</option>";
+    $form_html .= "<option value='06'>Juni</option>";
+    $form_html .= "<option value='07'>Juli</option>";
+    $form_html .= "<option value='08'>Augusti</option>";
+    $form_html .= "<option value='09'>September</option>";
+    $form_html .= "<option value='10'>Oktober</option>";
+    $form_html .= "<option value='11'>November</option>";
+    $form_html .= "<option value='12'>December</option>";
+    $form_html .= "</select> - ";
+    $form_html .= "<select name='dag'>";
+    for ($i = 1; $i < 32; $i++) {
+        if (strlen($i) == 1) {
+            $i = 0 . $i;
+        }
+        $form_html .= "<option value='$i'>$i</option>";
+    }
+    $form_html .= "</select>";
     $form_html .= "<p>Starttid(tt:mm)</p>";
-    $form_html .= "<input type='number' name='timme_start' required> : <input type='number' name='minut_start' required>";
+    $form_html .= "<select name='timme_start'>";
+    for ($i = 0; $i < 24; $i++) {
+        if (strlen($i) == 1) {
+            $i = 0 . $i;
+        }
+        $form_html .= "<option value='$i'>$i</option>";
+    }
+    $form_html .= "</select>:";
+    $form_html .= "<select name='minut_start' required>";
+    for($n = 0; $n < 60; $n++){
+        if (strlen($n) == 1) {
+            $n = 0 . $n;
+        }
+        $form_html .= "<option value='$n'>$n</option>";
+    }
+    $form_html .= "</select>";
     $form_html .= "<p>Sluttid (tt:mm)</p>";
-    $form_html .= "<input type='number' name='timme_slut' required> : <input type='number' name='minut_slut' required>";
+    $form_html .= "<select name='timme_slut'>";
+    for ($i = 0; $i < 24; $i++) {
+        if (strlen($i) == 1) {
+            $i = 0 . $i;
+        }
+        $form_html .= "<option value='$i'>$i</option>";
+    }
+    $form_html .= "</select>:";
+    $form_html .= "<select name='minut_slut' required>";
+    for($n = 0; $n < 60; $n++){
+        if (strlen($n) == 1) {
+            $n = 0 . $n;
+        }
+        $form_html .= "<option value='$n'>$n</option>";
+    }
+    $form_html .= "</select>";
     $form_html .= "<p>Användare</p>";
     $form_html .= "<input type='text' name='användare' required>";
     $form_html .= "<input type='hidden' name='action' value='ny_aktivitet'>";
