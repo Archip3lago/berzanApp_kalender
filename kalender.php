@@ -9,7 +9,7 @@ include 'data.php';
 
 
 
-$m = date('M');
+$m = date('m');
 $y = date('Y');
 $string_datum = $y . "-" . date('m') . "-01";
 
@@ -134,7 +134,44 @@ if (isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet") {
 }
 
 function skriv_ut_dagar($year, $month, $displacement, $date) {
-    echo "<h1>" . $month . "</h1>";
+    switch($month){
+        case 01:
+            echo "<h1>Januari</h1>";
+            break;
+        case 02:
+            echo "<h1>Februari</h1>";
+            break;
+        case 03:
+            echo "<h1>Mars</h1>";
+            break;
+        case 04:
+            echo "<h1>April</h1>";
+            break;
+        case 05:
+            echo "<h1>Maj</h1>";
+            break;
+        case 06:
+            echo "<h1>Juni</h1>";
+            break;
+        case 07:
+            echo "<h1>Juli</h1>";
+            break;
+        case 08:                                                                //Bugg
+            echo "<h1>Augusti</h1>";
+            break;
+        case 09:                                                                //Bugg
+            echo "<h1>September</h1>";
+            break;
+        case 10:
+            echo "<h1>Oktober</h1>";
+            break;
+        case 11:
+            echo "<h1>November</h1>";
+            break;
+        case 12:
+            echo "<h1>December</h1>";
+            break;
+    }    
     echo "<div class='dagnamn'>";
     echo "<h3>Måndag</h3>";
     echo "</div>";
