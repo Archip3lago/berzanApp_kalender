@@ -1,5 +1,6 @@
 <?php
-define("DB_SERVER", "localhost");
+if(isset($_SESSION["inloggad"])){
+    define("DB_SERVER", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
 define("DB_NAME", "berzanapp");
@@ -97,7 +98,8 @@ if (isset($_GET["laggTill_aktivitet"])) {
     }
     $form_html .= "</select>";
     $form_html .= "<p>Användare</p>";
-    $form_html .= "<input type='text' name='användare' required>";
+    $form_html .= "<input type='hidden' name='användare' value='" . $_SESSION["inloggad"]["användare"] . "'>";
+    $form_html .= "<input type='hidden' name='klass' value='".$_SESSION["inloggad"]["klass"]."'>";
     $form_html .= "<input type='hidden' name='action' value='ny_aktivitet'>";
     $form_html .= "<input type='submit'>";
     $form_html .= "</form>";
@@ -132,6 +134,11 @@ if (isset($_GET["action"]) and $_GET["action"] == "ny_aktivitet") {
     header("Location:?");
     exit();
 }
+}else{
+    header("location:login.php");
+    exit();
+}
+
 
 function skriv_ut_dagar($year, $month, $displacement, $date) {
     switch($month){
@@ -204,7 +211,7 @@ function skriv_ut_dagar($year, $month, $displacement, $date) {
     for ($i = 1; $i <= $antal; $i++) {
         echo "<div class='dag'>";
         echo "<p>" . $i . "</p>";
-        letaAktivitet($year, $month, $i);
+        letaAktivitet($year, $month, $i, $_SESSION["inloggad"]["klass"]);
         echo "<form method  ='GET'>";
         echo "<input type='hidden' name='laggTill_aktivitet'>";
         echo "<input type='hidden' name='date' value='dag_" . $i . "'>";
@@ -213,13 +220,13 @@ function skriv_ut_dagar($year, $month, $displacement, $date) {
     }
 }
 
-function letaAktivitet($year, $month, $day) {
+function letaAktivitet($year, $month, $day, $class) {
     $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
     if (strlen($day) == 1) {
         $day = 0 . $day;
     }
     $datum = $year . "-" . $month . "-" . $day;
-    $sql = "SELECT * FROM aktiviteter WHERE datum LIKE '" . $datum . "%'";
+    $sql = "SELECT * FROM aktiviteter WHERE datum LIKE '" . $datum . "%' and klass='".$class."'";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     $aktiviteter = $stmt->fetchAll();
